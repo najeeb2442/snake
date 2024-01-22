@@ -1,10 +1,19 @@
 const main = document.querySelector("main")
 
-let numOfCells = 0
+let numOfCells = 100
 let dead = false
 let direction = "d"
 let snake = [55, 45]
 
+const randomNumber = () => {
+  const num = parseInt(Math.random() * 100)
+  const color = main.children[num].style.backgroundColor
+  if (color == "blue") {
+    return randomNumber()
+  } else {
+    return num
+  }
+}
 // making the map
 const map = (rows, columns) => {
   let cells = rows * columns
@@ -56,13 +65,21 @@ addEventListener("keypress", (key) => {
   }
 })
 
-const show = () => {
-  //console.log(snake[0])
+const eat = (index) => {
+  snake.push(index)
+  num = randomNumber()
+  main.children[num].style.backgroundColor = "red"
+}
 
-  //console.log(main.children[snake[0]])
+const show = () => {
   main.children[snake[0]].style.backgroundColor = "blue"
   main.children[snake[snake.length - 1]].style.backgroundColor = "blue"
-  //snake[0]
+}
+
+const showAll = () => {
+  snake.forEach((el) => {
+    main.children[el].style.backgroundColor = "blue"
+  })
 }
 const disappear = (index) => {
   if (index % 2 == 0) {
@@ -95,8 +112,13 @@ const move = () => {
       newCell += 10
     }
   }
+
   snake.unshift(newCell)
+  if (main.children[newCell].style.backgroundColor == "red") {
+    eat(newCell)
+  }
   disappear(snake.pop())
+
   show()
 }
 
@@ -114,5 +136,8 @@ const movement = () => {
 
 map(10, 10)
 //show()
+showAll()
 movement()
-console.log(snake[snake.length - 1])
+main.children[randomNumber()].style.backgroundColor = "red"
+//console.log(snake[snake.length - 1])
+console.log(randomNumber())
