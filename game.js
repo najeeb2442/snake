@@ -3,7 +3,7 @@ const main = document.querySelector("main")
 let numOfCells = 100
 let dead = false
 let direction = "d"
-let snake = [55, 45]
+let snake = [1, 0]
 
 const randomNumber = () => {
   const num = parseInt(Math.random() * 100)
@@ -54,13 +54,13 @@ const map = (rows, columns) => {
 //eventlistener
 addEventListener("keypress", (key) => {
   console.log(key.key)
-  if (key.key.toLowerCase() == "w") {
+  if (key.key.toLowerCase() == "w" && direction != "s") {
     direction = "w"
-  } else if (key.key.toLowerCase() == "s") {
+  } else if (key.key.toLowerCase() == "s" && direction != "w") {
     direction = "s"
-  } else if (key.key.toLowerCase() == "a") {
+  } else if (key.key.toLowerCase() == "a" && direction != "d") {
     direction = "a"
-  } else if (key.key.toLowerCase() == "d") {
+  } else if (key.key.toLowerCase() == "d" && direction != "a") {
     direction = "d"
   }
 })
@@ -98,7 +98,7 @@ const move = () => {
     }
   } else if (direction.toLowerCase() == "s") {
     newCell = snake[0] + 10
-    if (snake[0] > 90) {
+    if (snake[0] >= 90) {
       newCell -= 100
     }
   } else if (direction.toLowerCase() == "d") {
@@ -116,6 +116,8 @@ const move = () => {
   snake.unshift(newCell)
   if (main.children[newCell].style.backgroundColor == "red") {
     eat(newCell)
+  } else if (main.children[newCell].style.backgroundColor == "blue") {
+    dead = true
   }
   disappear(snake.pop())
 
@@ -128,6 +130,8 @@ const movement = () => {
       //console.log("a")
       move()
       movement()
+    } else {
+      main.children[snake[0]].style.backgroundColor = "yellow"
     }
   }, 500)
 }
