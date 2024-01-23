@@ -5,7 +5,7 @@ body {
   /* position: absolute; */
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 }
 
 main {
@@ -49,4 +49,20 @@ main {
   background: url("apple3.png");
   background-size: cover;
   /* border-radius: 30px; */
+}
+
+.score {
+  color: rgb(212, 194, 252);
+}
+button {
+  height: 5vh;
+  width: 20vh;
+  background-color: rgb(212, 194, 252);
+  color: #533a71;
+  border: rgb(153, 143, 199);
+}
+
+button:disabled {
+  background-color: rgb(153, 143, 199);
+  color: rgb(212, 194, 252);
 }

@@ -1,5 +1,6 @@
 const main = document.querySelector("main")
 const restart = document.querySelector(".restart")
+const scoreText = document.querySelector(".score")
 
 let snakeColor = "rgb(20, 36, 138)"
 let appleColor = "rgb(98, 255, 124)"
@@ -12,6 +13,8 @@ let dead = false
 let direction = "d"
 let oldDirection = "d"
 let angle = 0
+let score = 0
+let rNum = 0
 let snake = [1, 0]
 
 const randomNumber = () => {
@@ -82,7 +85,8 @@ const eat = (index) => {
   main.children[index].children[0].classList.remove("apple")
   snake.push(index)
   num = randomNumber()
-
+  score += 1
+  scoreText.children[0].innerText = score
   main.children[num].children[0].classList.add("apple")
   main.children[num].children[0].style.backgroundColor = appleColor
 }
@@ -160,6 +164,7 @@ const movement = () => {
       movement()
     } else {
       main.children[snake[0]].children[0].style.backgroundColor = "red"
+      main.children[snake[0]].children[0].style.borderColor = "darkred"
     }
   }, 200)
 }
@@ -170,10 +175,14 @@ restart.addEventListener("click", () => {
   oldDirection = "d"
   angle = 0
   snake = [1, 0]
+  score = 0
   main.innerHTML = ""
+  score = 0
+  scoreText.children[0].innerText = score
   map(10, 10)
   showAll()
   movement()
+  restart.disabled = true
   rNum = randomNumber()
   main.children[rNum].children[0].classList.add("apple")
   main.children[rNum].children[0].style.backgroundColor = appleColor
@@ -182,7 +191,7 @@ restart.addEventListener("click", () => {
 ///starting the game
 
 map(10, 10)
-let rNum = randomNumber()
+rNum = randomNumber()
 showAll()
 movement()
 
