@@ -1,12 +1,15 @@
 body {
   display: flex;
+  flex-direction: column;
   background-color: #533a71;
   /* position: absolute; */
   justify-content: center;
   align-items: center;
+  gap: 5px;
 }
 
 main {
+  /* margin: 5px; */
   display: grid;
   height: 75vh;
   width: 75vh;

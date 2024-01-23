@@ -1,4 +1,5 @@
 const main = document.querySelector("main")
+const restart = document.querySelector(".restart")
 
 let snakeColor = "rgb(20, 36, 138)"
 let appleColor = "rgb(98, 255, 124)"
@@ -22,6 +23,7 @@ const randomNumber = () => {
     return num
   }
 }
+
 // making the map
 const map = (rows, columns) => {
   let cells = rows * columns
@@ -31,7 +33,6 @@ const map = (rows, columns) => {
     const div = document.createElement("div")
     div.innerHTML = "<div></div>"
     div.children[0].setAttribute("id", index)
-    //div.children[0].setAttribute("value", "")
     div.setAttribute("class", "cell")
     if (index % 2 == 0) {
       div.style.backgroundColor = firstGridColor
@@ -42,22 +43,14 @@ const map = (rows, columns) => {
   }
 }
 
-const change = () => {
-  // switch
-  // replace
-}
-
 //eventlistener
 addEventListener("keypress", (key) => {
-  // console.log(key.key)
   if (key.key.toLowerCase() == "w" && direction != "s") {
     direction = "w"
     if (oldDirection != direction && oldDirection == "a") {
-      console.log("up,a")
       main.children[snake[0]].children[0].style.rotate = "45deg"
     } else if (oldDirection == "d") {
       main.children[snake[0]].children[0].style.rotate = "-45deg"
-      console.log("up,d")
     }
   } else if (key.key.toLowerCase() == "s" && direction != "w") {
     direction = "s"
@@ -89,7 +82,7 @@ const eat = (index) => {
   main.children[index].children[0].classList.remove("apple")
   snake.push(index)
   num = randomNumber()
-  console.log(num)
+
   main.children[num].children[0].classList.add("apple")
   main.children[num].children[0].style.backgroundColor = appleColor
 }
@@ -101,7 +94,6 @@ const show = () => {
 
 const showAll = () => {
   snake.forEach((el) => {
-    // main.children[el].innerHTML = "<div></div>"
     main.children[el].children[0].classList.add("snake")
     main.children[el].children[0].style.backgroundColor = snakeColor
   })
@@ -139,19 +131,15 @@ const move = () => {
       newCell += 10
     }
   }
-  // transform: rotate(45deg);
 
-  //main.children[newCell].children[0].style.rotate = angle
   snake.unshift(newCell)
-  //console.log(main.children[newCell].style.backgroundColor)
-
   if (main.children[newCell].children[0].style.backgroundColor == appleColor) {
-    //console.log("111")
     eat(newCell)
   } else if (
     main.children[newCell].children[0].style.backgroundColor == snakeColor
   ) {
     dead = true
+    restart.disabled = false
   }
   disappear(snake.pop())
 
@@ -168,21 +156,35 @@ const move = () => {
 const movement = () => {
   setTimeout(() => {
     if (!dead) {
-      //console.log("a")
       move()
       movement()
     } else {
-      main.children[snake[0]].children[0].style.backgroundColor = "yellow"
+      main.children[snake[0]].children[0].style.backgroundColor = "red"
     }
   }, 200)
 }
 
+restart.addEventListener("click", () => {
+  dead = false
+  direction = "d"
+  oldDirection = "d"
+  angle = 0
+  snake = [1, 0]
+  main.innerHTML = ""
+  map(10, 10)
+  showAll()
+  movement()
+  rNum = randomNumber()
+  main.children[rNum].children[0].classList.add("apple")
+  main.children[rNum].children[0].style.backgroundColor = appleColor
+})
+
 ///starting the game
 
 map(10, 10)
+let rNum = randomNumber()
 showAll()
 movement()
-let rNum = randomNumber()
+
 main.children[rNum].children[0].classList.add("apple")
 main.children[rNum].children[0].style.backgroundColor = appleColor
-console.log(randomNumber())
