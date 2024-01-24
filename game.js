@@ -18,7 +18,6 @@ let snake = [1, 0]
 
 const timing = () => {
   ++time
-  console.log(time)
   let m = parseInt(time / 60)
   let s = time % 60
   m = checkTime(m)
@@ -68,29 +67,42 @@ const map = (rows, columns) => {
 }
 
 //eventlistener
-addEventListener("keypress", (key) => {
-  if (key.key.toLowerCase() == "w" && direction != "s") {
+addEventListener("keydown", (key) => {
+  console.log(key.key)
+  if (
+    (key.key == "ArrowUp" || key.key.toLowerCase() == "w") &&
+    direction != "s"
+  ) {
     direction = "w"
     if (oldDirection != direction && oldDirection == "a") {
       main.children[snake[0]].children[0].style.rotate = "45deg"
     } else if (oldDirection == "d") {
       main.children[snake[0]].children[0].style.rotate = "-45deg"
     }
-  } else if (key.key.toLowerCase() == "s" && direction != "w") {
+  } else if (
+    (key.key == "ArrowDown" || key.key.toLowerCase() == "s") &&
+    direction != "w"
+  ) {
     direction = "s"
     if (oldDirection != direction && oldDirection == "a") {
       main.children[snake[0]].children[0].style.rotate = "-45deg"
     } else if (oldDirection == "d") {
       main.children[snake[0]].children[0].style.rotate = "45deg"
     }
-  } else if (key.key.toLowerCase() == "a" && direction != "d") {
+  } else if (
+    (key.key == "ArrowLeft" || key.key.toLowerCase() == "a") &&
+    direction != "d"
+  ) {
     direction = "a"
     if (oldDirection != direction && oldDirection == "w") {
       main.children[snake[0]].children[0].style.rotate = "45deg"
     } else if (oldDirection == "s") {
       main.children[snake[0]].children[0].style.rotate = "-45deg"
     }
-  } else if (key.key.toLowerCase() == "d" && direction != "a") {
+  } else if (
+    (key.key == "ArrowRight" || key.key.toLowerCase() == "d") &&
+    direction != "a"
+  ) {
     direction = "d"
     if (oldDirection != direction && oldDirection == "w") {
       main.children[snake[0]].children[0].style.rotate = "-45deg"
