@@ -7,7 +7,6 @@ let appleColor = "rgb(98, 255, 124)"
 let firstGridColor = "rgb(153, 143, 199)"
 let secondGridColor = "rgb(212, 194, 252)"
 
-//white 249, 245, 255
 let numOfCells = 100
 let dead = false
 let direction = "d"
@@ -16,6 +15,28 @@ let angle = 0
 let score = 0
 let rNum = 0
 let snake = [1, 0]
+
+const timing = () => {
+  ++time
+  console.log(time)
+  let m = parseInt(time / 60)
+  let s = time % 60
+  m = checkTime(m)
+  s = checkTime(s)
+  let clock = document.querySelector(".clock").children[0]
+  clock.innerText = m + ":" + s
+}
+let time = 0
+let timer = setInterval(() => {
+  timing()
+}, 1000)
+function checkTime(i) {
+  //stolen :)
+  if (i < 10) {
+    i = "0" + i
+  } // add zero in front of numbers < 10
+  return i
+}
 
 const randomNumber = () => {
   const num = parseInt(Math.random() * 100)
@@ -78,7 +99,6 @@ addEventListener("keypress", (key) => {
     }
   }
   oldDirection = direction
-  // change()
 })
 
 const eat = (index) => {
@@ -144,6 +164,7 @@ const move = () => {
   ) {
     dead = true
     restart.disabled = false
+    clearInterval(timer)
   }
   disappear(snake.pop())
 
@@ -182,6 +203,11 @@ restart.addEventListener("click", () => {
   map(10, 10)
   showAll()
   movement()
+  document.querySelector(".clock").children[0].innerText = "00:00"
+  time = 0
+  timer = setInterval(() => {
+    timing()
+  }, 1000)
   restart.disabled = true
   rNum = randomNumber()
   main.children[rNum].children[0].classList.add("apple")
@@ -194,6 +220,8 @@ map(10, 10)
 rNum = randomNumber()
 showAll()
 movement()
-
+// timer = setInterval(() => {
+//   timing
+// }, 1000)
 main.children[rNum].children[0].classList.add("apple")
 main.children[rNum].children[0].style.backgroundColor = appleColor

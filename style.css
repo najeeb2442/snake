@@ -6,6 +6,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  /* color: rgb(212, 194, 252); */
 }
 
 main {
@@ -28,7 +29,9 @@ main {
   align-items: center;
   /* align-self: center; */
   background-size: cover;
-  border: 1px solid;
+  border: 2px solid;
+  /* margin-top: 1px; */
+  border-color: #76659c;
 }
 
 .snake {
@@ -51,7 +54,8 @@ main {
   /* border-radius: 30px; */
 }
 
-.score {
+.score,
+.clock {
   color: rgb(212, 194, 252);
 }
 button {
@@ -65,4 +69,10 @@ button {
 button:disabled {
   background-color: rgb(153, 143, 199);
   color: rgb(212, 194, 252);
+}
+
+header {
+  display: flex;
+  width: 75vh;
+  justify-content: space-between;
 }
