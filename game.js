@@ -37,10 +37,16 @@ function checkTime(i) {
   return i
 }
 
+//////////////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////
+////////////
+
 const randomNumber = () => {
-  const num = parseInt(Math.random() * 100)
+  const num = Math.floor(Math.random() * 100)
   const color = main.children[num].children[0].style.backgroundColor
-  if (color == snakeColor) {
+
+  if (color == snakeColor || color == appleColor) {
     return randomNumber()
   } else {
     return num
@@ -166,9 +172,7 @@ const move = () => {
       newCell += 10
     }
   }
-
   snake.unshift(newCell)
-  console.log(main.children[newCell].children[0].getAttribute("value"))
   if (main.children[newCell].children[0].style.backgroundColor == appleColor) {
     eat(newCell)
   } else if (
