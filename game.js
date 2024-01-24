@@ -68,7 +68,6 @@ const map = (rows, columns) => {
 
 //eventlistener
 addEventListener("keydown", (key) => {
-  console.log(key.key)
   if (
     (key.key == "ArrowUp" || key.key.toLowerCase() == "w") &&
     direction != "s"
@@ -138,9 +137,9 @@ const disappear = (index) => {
   main.children[index].children[0].style.rotate = ""
   main.children[index].children[0].classList.remove("snake")
   if (index % 2 == 0) {
-    main.children[index].children[0].style.backgroundColor = firstGridColor
+    main.children[index].children[0].style.backgroundColor = "" //firstGridColor
   } else {
-    main.children[index].children[0].style.backgroundColor = secondGridColor
+    main.children[index].children[0].style.backgroundColor = "" //secondGridColor
   }
 }
 
@@ -169,6 +168,7 @@ const move = () => {
   }
 
   snake.unshift(newCell)
+  console.log(main.children[newCell].children[0].getAttribute("value"))
   if (main.children[newCell].children[0].style.backgroundColor == appleColor) {
     eat(newCell)
   } else if (
